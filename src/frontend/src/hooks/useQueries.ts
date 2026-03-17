@@ -136,8 +136,8 @@ export function useIsAdmin() {
     queryFn: async () => {
       if (!actor) return false;
       try {
-        // Use isCallerAdmin with fallback to false for unregistered users
-        return await actor.isCallerAdmin();
+        // Use safeIsCallerAdmin which never traps for unregistered users
+        return await (actor as any).safeIsCallerAdmin();
       } catch {
         return false;
       }
@@ -152,7 +152,6 @@ export function useClaimAdmin() {
   return useMutation({
     mutationFn: async (): Promise<boolean> => {
       if (!actor) throw new Error("Not connected");
-      // claimAdmin may not exist on older generated types; cast to any for compatibility
       return (actor as any).claimAdmin();
     },
     onSuccess: () => {

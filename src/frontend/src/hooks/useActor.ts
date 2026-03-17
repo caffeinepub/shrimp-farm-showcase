@@ -26,8 +26,13 @@ export function useActor() {
       };
 
       const actor = await createActorWithConfig(actorOptions);
-      const adminToken = getSecretParameter("caffeineAdminToken") || "";
-      await actor._initializeAccessControlWithSecret(adminToken);
+      try {
+        const adminToken = getSecretParameter("caffeineAdminToken") || "";
+        await actor._initializeAccessControlWithSecret(adminToken);
+      } catch {
+        // Initialization may fail if already registered or token mismatch;
+        // the actor is still valid for claimAdmin and other calls
+      }
       return actor;
     },
     // Only refetch when identity changes
