@@ -51,11 +51,11 @@ actor {
   include MixinStorage();
 
   var farmerProfile : ?FarmerProfile = ?{
-    name = "Raj Shrimp Farms";
-    location = "West Godavari, Andhra Pradesh";
-    contactPhone = "1234567890";
-    contactEmail = "contact@rajshrimpfarms.com";
-    about = "Raj Shrimp Farms is committed to sustainable and high-quality shrimp production.";
+    name = "Hemanth Mukku";
+    location = "West Godavari, Andhra Pradesh, India";
+    contactPhone = "+91 9398886020";
+    contactEmail = "hemanthmukku3@gmail.com";
+    about = "Third-generation shrimp farmer with over 20 years of experience in sustainable aquaculture. Our farms in West Godavari are known for premium quality Vannamei shrimp raised using best aquaculture practices. We supply to major seafood processing companies across Andhra Pradesh and beyond.";
   };
 
   let farms = Map.empty<Text, Farm>();
@@ -76,6 +76,53 @@ actor {
       Int.compare(farm1.created, farm2.created);
     };
   };
+
+  // Seed default farms if none exist
+  func seedFarmsIfEmpty() {
+    if (farms.size() == 0) {
+      let sampleFarms = [
+        {
+          id = "farm1";
+          name = "Godavari Aqua Farm - Unit 1";
+          description = "Flagship 5-acre facility with scientifically designed rectangular ponds. Equipped with automated aeration, water quality monitoring, and biosecurity protocols.";
+          acreage = 5.0;
+          pondCount = 3;
+          species = "Litopenaeus vannamei (Vannamei)";
+          productionCapacity = 30.0;
+          certifications = ["BMP Certified", "MPEDA Registered", "EIC Approved"];
+          created = Time.now();
+        },
+        {
+          id = "farm2";
+          name = "Delta Shrimp Farm - Unit 2";
+          description = "Semi-intensive 5-acre farm utilizing natural tidal water exchange with modern paddlewheel aerators. Focus on organic and antibiotic-free shrimp production.";
+          acreage = 5.0;
+          pondCount = 3;
+          species = "Litopenaeus vannamei (Vannamei)";
+          productionCapacity = 25.0;
+          certifications = ["BAP 4-Star", "MPEDA Registered"];
+          created = Time.now();
+        },
+        {
+          id = "farm3";
+          name = "Kolleru Aquaculture Park";
+          description = "5-acre aquaculture park with integrated mangrove buffer zones. Premium export-grade shrimp with full chain of custody documentation.";
+          acreage = 5.0;
+          pondCount = 3;
+          species = "Penaeus monodon (Tiger Shrimp)";
+          productionCapacity = 28.0;
+          certifications = ["ASC Certified", "BMP Certified", "HACCP", "MPEDA Registered"];
+          created = Time.now();
+        },
+      ];
+      for (farm in sampleFarms.values()) {
+        farms.add(farm.id, farm);
+      };
+    };
+  };
+
+  // Run seeding on initialization and after upgrades
+  seedFarmsIfEmpty();
 
   // Bootstrap: claim admin if none assigned yet
   public shared ({ caller }) func claimAdmin() : async Bool {
@@ -202,45 +249,15 @@ actor {
     photos;
   };
 
-  system func preupgrade() {
-    let sampleFarms = [
-      {
-        id = "farm1";
-        name = "Sunshine Shrimp Farm";
-        description = "A modern facility focusing on Vannamei shrimp";
-        acreage = 25.0;
-        pondCount = 8;
-        species = "Vannamei";
-        productionCapacity = 80.0;
-        certifications = ["BAP", "ASC"];
-        created = Time.now();
-      },
-      {
-        id = "farm2";
-        name = "Royal Prawn Estate";
-        description = "Traditional farm specializing in Tiger Shrimp";
-        acreage = 12.0;
-        pondCount = 3;
-        species = "Tiger Shrimp";
-        productionCapacity = 28.0;
-        certifications = ["Local certification"];
-        created = Time.now();
-      },
-      {
-        id = "farm3";
-        name = "Eco Aqua Farms";
-        description = "Eco-friendly farm with diverse shrimp species";
-        acreage = 37.5;
-        pondCount = 11;
-        species = "Mixed (Tiger & Vannamei)";
-        productionCapacity = 117.0;
-        certifications = ["BAP"];
-        created = Time.now();
-      },
-    ];
-
-    for (farm in sampleFarms.values()) {
-      farms.add(farm.id, farm);
+  system func postupgrade() {
+    seedFarmsIfEmpty();
+    // Reset farmer profile to correct values after upgrade
+    farmerProfile := ?{
+      name = "Hemanth Mukku";
+      location = "West Godavari, Andhra Pradesh, India";
+      contactPhone = "+91 9398886020";
+      contactEmail = "hemanthmukku3@gmail.com";
+      about = "Third-generation shrimp farmer with over 20 years of experience in sustainable aquaculture. Our farms in West Godavari are known for premium quality Vannamei shrimp raised using best aquaculture practices. We supply to major seafood processing companies across Andhra Pradesh and beyond.";
     };
   };
 };

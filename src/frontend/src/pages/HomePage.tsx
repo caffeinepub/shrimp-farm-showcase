@@ -36,11 +36,11 @@ const STATIC_FARMS = [
     created: BigInt(0),
     name: "Godavari Aqua Farm - Unit 1",
     description:
-      "Our flagship 40-acre facility with 24 scientifically designed rectangular ponds. Equipped with automated aeration, water quality monitoring, and biosecurity protocols.",
-    acreage: 40,
-    pondCount: BigInt(24),
+      "Our flagship 5-acre facility with 3 scientifically designed rectangular ponds. Equipped with automated aeration, water quality monitoring, and biosecurity protocols.",
+    acreage: 5,
+    pondCount: BigInt(3),
     species: "Litopenaeus vannamei (Vannamei)",
-    productionCapacity: 120,
+    productionCapacity: 30,
     certifications: ["BMP Certified", "MPEDA Registered", "EIC Approved"],
   },
   {
@@ -48,11 +48,11 @@ const STATIC_FARMS = [
     created: BigInt(0),
     name: "Delta Shrimp Farm - Unit 2",
     description:
-      "Semi-intensive farm utilizing natural tidal water exchange with modern paddlewheel aerators. Focus on organic and antibiotic-free shrimp production.",
-    acreage: 28,
-    pondCount: BigInt(16),
+      "5-acre semi-intensive farm utilizing natural tidal water exchange with modern paddlewheel aerators. Focus on organic and antibiotic-free shrimp production.",
+    acreage: 5,
+    pondCount: BigInt(3),
     species: "Litopenaeus vannamei (Vannamei)",
-    productionCapacity: 80,
+    productionCapacity: 25,
     certifications: ["BAP 4-Star", "MPEDA Registered"],
   },
   {
@@ -60,11 +60,11 @@ const STATIC_FARMS = [
     created: BigInt(0),
     name: "Kolleru Aquaculture Park",
     description:
-      "Expansive 65-acre aquaculture park with integrated mangrove buffer zones. Premium export-grade shrimp with full chain of custody documentation.",
-    acreage: 65,
-    pondCount: BigInt(36),
+      "5-acre aquaculture park with integrated mangrove buffer zones. Premium export-grade shrimp with full chain of custody documentation.",
+    acreage: 5,
+    pondCount: BigInt(3),
     species: "Penaeus monodon (Tiger Shrimp)",
-    productionCapacity: 180,
+    productionCapacity: 28,
     certifications: [
       "ASC Certified",
       "BMP Certified",
